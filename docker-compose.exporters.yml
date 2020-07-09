@@ -20,7 +20,7 @@ services:
       org.label-schema.group: "monitoring"
 
   cadvisor:
-    image: gcr.io/google-containers/cadvisor:v0.36.0
+    image: google/cadvisor
     container_name: cadvisor
     volumes:
       - /:/rootfs:ro
@@ -32,5 +32,5 @@ services:
     network_mode: host
     labels:
       org.label-schema.group: "monitoring"
-  
+
 
