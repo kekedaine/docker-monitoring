@@ -1,0 +1,38 @@
+# route:
+#     receiver: 'slack'
+
+# receivers:
+# - name: 'slack'
+#   slack_configs:
+#   - send_resolved: true
+#     text: "{{ .Annotations.description }}"
+#     username: 'Booking Notify'
+#     channel: '#booking'
+#     api_url: 'https://hooks.slack.com/services/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'
+
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'kmalertmanager@gmail.com'
+  smtp_auth_username: 'kmalertmanager'
+  smtp_auth_password: "thisIsPassword"
+
+  # slack_api_url: 'https://hooks.slack.com/services/KJKLDJDKLJSKLJDKLS'
+
+route:
+  group_by: [alertname, datacenter, app]
+  receiver: 'team-1'
+  # receiver: 'telegram'
+
+receivers:
+  - name: 'team-1'
+    email_configs:
+    - to: 'daidnv@gmail.com'
+    # slack_configs:
+    # - channel: '#booking'
+    #   text: "<!channel> \nsummary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
+    webhook_configs:
+    - send_resolved: true
+      url: 'http://alertmanager-bot:8080'
+  - name: telegram
+    webhook_configs:
+    - url: http://alertmanager-bot:8080
