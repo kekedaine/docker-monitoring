@@ -1,4 +1,8 @@
-version: '2.1'
+version: '3.5'
+
+networks:
+  monitor-net:
+    driver: bridge
 
 services:
 
@@ -15,7 +19,10 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - 9100:9100
+    networks:
+      - monitor-net
     labels:
       org.label-schema.group: "monitoring"
 
@@ -27,9 +34,12 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      - /cgroup:/cgroup:ro
+      # - /cgroup:/cgroup:ro
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - 8080:8080
+    networks:
+      - monitor-net
     labels:
       org.label-schema.group: "monitoring"
 

@@ -9,8 +9,10 @@ A monitoring solution for Docker hosts and containers with:
 and alerting with: [AlertManager](https://github.com/prometheus/alertmanager), [AlertManager-BOT-telegram](https://github.com/metalmatze/alertmanager-bot)
 
 ## Install
-
+```
 ADMIN_USER=admin ADMIN_PASSWORD=admin docker-compose up -d
+docker-compose up -d --force-recreate --build
+```
 ```
 
 Prerequisites:
